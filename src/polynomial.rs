@@ -8,15 +8,11 @@ impl Polynomial {
   }
 
   pub fn at(&self, x: f32) -> f32 {
-    let mut result = 0.0;
-
-    let mut xs = 1.0;
-    for coefficient in &self.coefficients {
-      result += coefficient * xs;
-      xs *= x;
-    }
-
-    result
+    self
+      .coefficients
+      .iter()
+      .fold((0.0, 1.0), |(r, xs), e| (r + e * xs, xs * x))
+      .0
   }
 }
 
